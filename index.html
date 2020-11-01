@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .video-wrapper {
+            width: 720px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>Original</h1>
+    <video id="videoInput" class="video-wrapper" width="720" height="648" autoplay>
+        <p>This browser does not support the video element.</p>
+    </video>
+</div>
+
+<div>
+    <h1>Canvas</h1>
+    <canvas id="videoCanvas" class="video-wrapper" width="720" height="648"></canvas>
+</div>
+
+<div>
+    <h1>Transformed Canvas</h1>
+    <canvas id="asciiCanvas" class="video-wrapper" width="720" height="648"></canvas>
+</div>
+
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="main.js" async></script>
+</body>
+</html>
