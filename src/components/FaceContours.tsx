@@ -3,6 +3,7 @@ import {
   detectSingleFace,
   draw,
   resizeResults,
+  SsdMobilenetv1Options,
   TinyFaceDetectorOptions,
 } from "face-api.js";
 
@@ -75,6 +76,6 @@ export default function FaceContours(props: Props) {
 async function detect(ref: MutableRefObject<HTMLVideoElement>) {
   return detectSingleFace(
     ref.current,
-    new TinyFaceDetectorOptions()
+    new SsdMobilenetv1Options({ maxResults: 1, minConfidence: 0.3 })
   ).withFaceLandmarks(true);
 }

@@ -10,6 +10,7 @@ export default function DependenciesProvider(props: Props) {
 
   async function load() {
     await nets.faceLandmark68TinyNet.loadFromUri("models");
+    await nets.ssdMobilenetv1.loadFromUri("models");
     await nets.tinyFaceDetector.loadFromUri("models");
 
     setLoaded(true);
