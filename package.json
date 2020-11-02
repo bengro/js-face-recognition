@@ -1,0 +1,20 @@
+{
+  "name": "webrtc-experiment",
+  "version": "1.0.0",
+  "description": "Learning what is possible with WebRTC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "face-api.js": "^0.22.2",
+    "gatsby": "^2.24.91",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  }
+}
