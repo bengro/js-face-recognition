@@ -9,9 +9,8 @@ export default function DependenciesProvider(props: Props) {
   const [loaded, setLoaded] = useState(false);
 
   async function load() {
+    await nets.mtcnn.loadFromUri("models");
     await nets.faceLandmark68TinyNet.loadFromUri("models");
-    await nets.ssdMobilenetv1.loadFromUri("models");
-    await nets.tinyFaceDetector.loadFromUri("models");
 
     setLoaded(true);
   }
