@@ -1,12 +1,9 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import {
-  detectSingleFace,
-  draw,
-  MtcnnOptions,
-  resizeResults,
-} from "face-api.js";
+import React, { MutableRefObject, useEffect, useRef } from "react";
+import { faceApiWorker } from "../worker/FaceApiWorker";
+import { extractFrame } from "./extractFrame";
+import { draw } from "face-api.js";
 
-interface CanvasConfiguration {
+export interface CanvasConfiguration {
   height: number;
   width: number;
   repaintInterval: number;
@@ -25,32 +22,34 @@ interface Props {
 export default function FaceContours(props: Props) {
   const videoRef: MutableRefObject<HTMLVideoElement> = useRef(null);
   const canvasRef: MutableRefObject<HTMLCanvasElement> = useRef(null);
-  const [faceData, setFaceData] = useState(null);
+
+  useEffect(() => {
+    async function load() {
+      await faceApiWorker.load();
+    }
+
+    load();
+  });
 
   useEffect(() => {
     videoRef.current.srcObject = props.stream;
   }, [props.stream]);
 
   const onPlaying = async () => {
-    const data = await detectSingleFace(
-      videoRef.current,
-      new MtcnnOptions()
-    ).withFaceLandmarks(true);
+    const data = await faceApiWorker.analyzeFrame(
+      extractFrame(videoRef),
+      configuration
+    );
+
+    console.log("Worker returned data:", data);
 
     if (data) {
       canvasRef.current
         .getContext("2d")
         .clearRect(0, 0, configuration.width, configuration.height);
 
-      const resizedResults = resizeResults(data, {
-        height: configuration.height,
-        width: configuration.width,
-      });
-
-      draw.drawFaceLandmarks(canvasRef.current, resizedResults);
+      draw.drawFaceLandmarks(canvasRef.current, data);
     }
-
-    setTimeout(async () => await onPlaying(), configuration.repaintInterval);
   };
 
   return (
@@ -62,8 +61,10 @@ export default function FaceContours(props: Props) {
       />
       <video
         autoPlay
+        controls={true}
         ref={videoRef}
         onPlaying={onPlaying}
+        onPause={onPlaying}
         width={250}
         height={250}
       >
