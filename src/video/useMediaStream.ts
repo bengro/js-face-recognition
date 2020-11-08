@@ -8,8 +8,8 @@ export function useMediaStream() {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
-          width: { min: 1024, ideal: 1024, max: 1024 },
-          height: { min: 576, ideal: 576, max: 576 },
+          width: 256,
+          height: 256,
         },
       });
       setMediaStream(stream);
