@@ -11,7 +11,8 @@ export default function DependenciesProvider(props: Props) {
   async function load() {
     await worker.load();
     setLoaded(true);
-    console.log("Library loaded ✅");
+
+    console.info("Library loaded ✅");
   }
 
   load();

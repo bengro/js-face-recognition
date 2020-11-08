@@ -1,11 +1,11 @@
 importScripts("/libs/face-api.js", "/libs/face-api-monkeypatch.js");
 
 export async function load() {
-  console.log("Loading dependencies 🏃‍️");
-
-  await faceapi.nets.mtcnn.loadFromUri("/models");
-  await faceapi.nets.faceLandmark68Net.loadFromUri("/models");
-  await faceapi.nets.faceLandmark68TinyNet.loadFromUri("/models");
+  Promise.all([
+    faceapi.nets.mtcnn.loadFromUri("/models"),
+    faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+    faceapi.nets.faceLandmark68TinyNet.loadFromUri("/models"),
+  ]);
 
   console.log("Loaded dependencies ✅");
 }

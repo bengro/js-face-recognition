@@ -1,31 +1,19 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import worker from "../worker/VideoWorker";
-import { draw, resizeResults } from "face-api.js";
-import { drawFaceLandmarks } from "face-api.js/build/es6/draw";
-
-export interface CanvasConfiguration {
-  height: number;
-  width: number;
-  repaintInterval: number;
-}
-
-const configuration: CanvasConfiguration = {
-  height: 256,
-  width: 256,
-  repaintInterval: 0,
-};
+import { configuration } from "./CanvasConfiguration";
 
 interface Props {
   stream: MediaStream;
 }
 
-export default function FaceContours(props: Props) {
+export default function Video(props: Props) {
   const videoRef: MutableRefObject<HTMLVideoElement> = useRef(null);
   const canvasRef: MutableRefObject<HTMLCanvasElement> = useRef(null);
   const [landmarks, setLandmarks] = useState([]);
 
   useEffect(() => {
     videoRef.current.srcObject = props.stream;
+    canvasRef.current.getContext("2d").fillStyle = "#626262";
   }, [props.stream]);
 
   useEffect(() => {
@@ -65,6 +53,7 @@ export default function FaceContours(props: Props) {
         height={configuration.height}
         width={configuration.width}
       />
+
       <video
         style={{ display: "none" }}
         autoPlay

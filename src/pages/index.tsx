@@ -1,14 +1,17 @@
 import React from "react";
-import FaceContours from "../video/FaceContours";
+import Video from "../video/Video";
 import { useMediaStream } from "../video/useMediaStream";
+import "./index.scss";
 
 export default function Index() {
   const mediaStream = useMediaStream();
 
   return (
     <>
-      <div>
-        <FaceContours stream={mediaStream} />
+      <div className={"wrapper"}>
+        <div className={"container"}>
+          <Video stream={mediaStream} />
+        </div>
       </div>
     </>
   );
