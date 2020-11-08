@@ -9,7 +9,7 @@ interface Props {
 export default function Video(props: Props) {
   const videoRef: MutableRefObject<HTMLVideoElement> = useRef(null);
   const canvasRef: MutableRefObject<HTMLCanvasElement> = useRef(null);
-  const [landmarks, setLandmarks] = useState([]);
+  const [landmarks, setLandmarks] = useState<[{_x, _y}?]>([]);
 
   useEffect(() => {
     videoRef.current.srcObject = props.stream;
